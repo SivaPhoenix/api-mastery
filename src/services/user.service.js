@@ -18,6 +18,10 @@ const createUser=async(userData)=>{
     return user;
 }
 
+const getUsers=async(filter)=>{
+    return userRepository.findAll(filter);
+}
+
 const getUserById=async(id)=>{
     const user=await userRepository.findById(id);
 
@@ -73,6 +77,7 @@ const checkUserExists=async(id)=>{
 }
 module.exports={
     createUser,
+    getUsers,
     getUserById,
     updateUser,
     deleteUser,

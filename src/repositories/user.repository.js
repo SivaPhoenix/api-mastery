@@ -5,6 +5,10 @@ const create = async (userData) => {
     return User.create(userData);
 }
 
+const findAll=async (filter={})=>{
+    return User.find(filter);
+}
+
 const findByEmail = async (email) => {
     return User.findOne({ email });
 };
@@ -12,6 +16,7 @@ const findByEmail = async (email) => {
 const findById = async (id) => {
     return User.findById(id)
 }
+
 
 const updateById=async(id,updateData)=>{
     return User.findByIdAndUpdate(
@@ -29,6 +34,7 @@ const deleteById=async(id)=>{
 
 module.exports = {
     create,
+    findAll,
     findByEmail,
     findById,
     updateById,
