@@ -30,6 +30,29 @@ const userSchema=new mongoose.Schema({
         enum:["active","blocked"],
         default:"active"
     },
+    age:{
+        type:Number,
+        required:true,
+        min:5,
+        max:100
+    },
+    gender:{
+        type:String,
+        enum:["male","female","other"],
+        required:true
+    },
+    city:{
+        type:String,
+        trim:true
+    },
+    country:{
+        type:String,
+        trim:true
+    },
+    phone:{
+        type:String,
+        trim:true
+    }
 },
   {
     timestamps: true

@@ -18,6 +18,50 @@ const createUser=async(userData)=>{
     return user;
 }
 
+const getUserById=async(id)=>{
+    const user=await userRepository.findById(id);
+
+    if (!user){
+        const error=new Error("User not Found");
+        error.status=404;
+        error.code="USER_NOT_FOUND"
+
+        throw error;
+    }
+
+    return user;
+}
+
+const updateUser= async(id,userData)=>{
+    const user = await userRepository.updateById(id,userData);
+
+    if(!user){
+        const error = new Error("User Not found");
+        error.status=404;
+        error.code="USER_NOT_FOUND";
+
+        throw error;
+    }
+
+    return user;
+}
+
+const deleteUser=async(id)=>{
+    const user = await userRepository.deleteById(id);
+
+    if(!user){
+        const error = new Error("User Not found");
+        error.status=404;
+        error.code="USER_NOT_FOUND";
+
+        throw error;
+    }
+
+    return user;
+}
 module.exports={
-    createUser
+    createUser,
+    getUserById,
+    updateUser,
+    deleteUser
 }

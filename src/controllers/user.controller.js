@@ -19,6 +19,56 @@ const createUser=async(req,res,next)=>{
     }}
 }
 
+const getUserById=async(req,res,next)=>{
+    try{
+        const user=await userService.getUserById(req.params.id);
+        res.status(200).json({
+            data:{
+                id:user._id,
+                name:user.name,
+                email:user.email,
+                role:user.role,
+                status:user.status,
+                createdAt:user.createdAt
+            }
+        })
+    }catch(error){
+        next(error);
+    }
+}
+
+const updateById=async(req,res,next)=>{
+    try{
+        const user=await userService.updateUser(req.params.id,req.body);
+        res.status(200).json({
+            data:{
+                id:user._id,
+                name:user.name,
+                email:user.email,
+                role:user.role,
+                status:user.status,
+                createdAt:user.createdAt
+            }
+        })
+    }catch(error){
+        next(error)
+    }
+}
+
+const deleteById=async(req,res,next)=>{
+    try{
+        const user=await userService.deleteUser(req.params.id)
+
+        res.status(200).json({
+            message:"User deleted successfully"
+        })
+    }catch(error){
+        next(error)
+    }
+}
 module.exports={
-    createUser
+    createUser,
+    getUserById,
+    updateById,
+    deleteById
 }

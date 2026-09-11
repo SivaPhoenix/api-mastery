@@ -19,6 +19,7 @@ app.get("/health", (req, res) => {
 
 app.use("/api/v1/users", userRoutes);
 
+
 app.use(errorMiddleware);
 
 module.exports = app;

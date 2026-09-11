@@ -1,15 +1,36 @@
-const User=require("../models/user.model")
+const User = require("../models/user.model")
 
 
-const create =async(userData)=>{
+const create = async (userData) => {
     return User.create(userData);
 }
 
-const findByEmail=async(email)=>{
-    return User.findOne({email});
+const findByEmail = async (email) => {
+    return User.findOne({ email });
 };
 
-module.exports={
+const findById = async (id) => {
+    return User.findById(id)
+}
+
+const updateById=async(id,updateData)=>{
+    return User.findByIdAndUpdate(
+        id,
+        updateData,
+        {
+            returnDocument: 'after',
+            runValidators: true
+        })
+}
+
+const deleteById=async(id)=>{
+    return User.findByIdAndDelete(id);
+}
+
+module.exports = {
     create,
-    findByEmail
+    findByEmail,
+    findById,
+    updateById,
+    deleteById
 }

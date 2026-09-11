@@ -5,5 +5,8 @@ const userController=require("../controllers/user.controller")
 const router=express.Router()
 
 router.post("/",userController.createUser);
+router.get("/:id",userController.getUserById);
+router.put("/:id",userController.updateById);
+router.delete("/:id",userController.deleteById);
 
 module.exports=router
