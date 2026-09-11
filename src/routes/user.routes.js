@@ -10,5 +10,7 @@ router.put("/:id",userController.updateById);
 router.patch("/:id",userController.patchUser);
 router.head("/:id",userController.headUser);
 router.delete("/:id",userController.deleteById);
+router.options("/:id", userController.optionUser);
+
 
 module.exports=router
