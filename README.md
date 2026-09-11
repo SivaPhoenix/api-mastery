@@ -411,7 +411,108 @@ Expected:
 ```json
 {
   "success": true,
-  "message": "API is healthy"
+  "message": "Server is healthy",
+  "timestamp": "2026-09-11T04:30:00.000Z"
+}
+```
+
+## Implemented Endpoints
+
+### 1. Create User
+- **Method**: `POST`
+- **URL**: `/api/v1/users`
+- **Headers**: `Content-Type: application/json`
+- **Request Body**:
+```json
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "passwordHash": "hashed_secret",
+  "role": "customer",
+  "status": "active",
+  "age": 25,
+  "gender": "male",
+  "city": "Bengaluru",
+  "country": "India",
+  "phone": "+919876543210"
+}
+```
+- **Response**: `201 Created`
+```json
+{
+  "data": {
+    "id": "66e138f75c2e1a3b4c5d6e7f",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "role": "customer",
+    "status": "active",
+    "createdAt": "2026-09-11T05:00:00.000Z"
+  }
+}
+```
+
+### 2. Get User by ID
+- **Method**: `GET`
+- **URL**: `/api/v1/users/:id`
+- **Response**: `200 OK`
+```json
+{
+  "data": {
+    "id": "66e138f75c2e1a3b4c5d6e7f",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "role": "customer",
+    "status": "active",
+    "createdAt": "2026-09-11T05:00:00.000Z"
+  }
+}
+```
+
+### 3. Update User by ID
+- **Method**: `PUT`
+- **URL**: `/api/v1/users/:id`
+- **Headers**: `Content-Type: application/json`
+- **Request Body**:
+```json
+{
+  "name": "Johnathan Doe",
+  "age": 26,
+  "city": "Mumbai"
+}
+```
+- **Response**: `200 OK`
+```json
+{
+  "data": {
+    "id": "66e138f75c2e1a3b4c5d6e7f",
+    "name": "Johnathan Doe",
+    "email": "john.doe@example.com",
+    "role": "customer",
+    "status": "active",
+    "createdAt": "2026-09-11T05:00:00.000Z"
+  }
+}
+```
+
+### 4. Delete User by ID
+- **Method**: `DELETE`
+- **URL**: `/api/v1/users/:id`
+- **Response**: `200 OK`
+```json
+{
+  "message": "User deleted successfully"
+}
+```
+
+### Error Response Format
+All errors handled by the centralized error middleware adhere to:
+```json
+{
+  "success": false,
+  "error": {
+    "code": "USER_NOT_FOUND",
+    "message": "User Not found"
+  }
 }
 ```
 
@@ -461,17 +562,17 @@ postman/
 [x] MongoDB Atlas connection
 [x] Express server
 [x] Health endpoint
-[x] User model
-[x] POST /api/v1/users
+[x] User model (name, email, passwordHash, role, status, age, gender, city, country, phone)
 [x] Centralized error middleware
+[x] POST /api/v1/users (Create User)
+[x] GET /api/v1/users/:id (Get User by ID)
+[x] PUT /api/v1/users/:id (Update User)
+[x] DELETE /api/v1/users/:id (Delete User)
 
-[ ] GET /api/v1/users/:id
-[ ] GET /api/v1/users
-[ ] PUT
-[ ] PATCH
-[ ] DELETE
-[ ] HEAD
-[ ] OPTIONS
+[ ] GET /api/v1/users (List, pagination, sorting & filtering)
+[ ] PATCH /api/v1/users/:id (Partial updates)
+[ ] HEAD /api/v1/users/:id
+[ ] OPTIONS /api/v1/users/:id
 ```
 
 ## Learning Principle
