@@ -11,6 +11,11 @@ const createUser=async(req,res,next)=>{
             email:user.email,
             role:user.role,
             status:user.status,
+            age:user.age,
+            gender:user.gender,
+            city:user.city,
+            country:user.country,
+            phone:user.phone,
             createdAt:user.createdAt
         }
      })
@@ -29,6 +34,11 @@ const getUserById=async(req,res,next)=>{
                 email:user.email,
                 role:user.role,
                 status:user.status,
+                age:user.age,
+                gender:user.gender,
+                city:user.city,
+                country:user.country,
+                phone:user.phone,
                 createdAt:user.createdAt
             }
         })
@@ -47,6 +57,38 @@ const updateById=async(req,res,next)=>{
                 email:user.email,
                 role:user.role,
                 status:user.status,
+                age:user.age,
+                gender:user.gender,
+                city:user.city,
+                country:user.country,
+                phone:user.phone,
+                createdAt:user.createdAt
+            }
+        })
+    }catch(error){
+        next(error)
+    }
+}
+
+const patchUser=async(req,res,next)=>{
+    try{
+        const user =await userService.updateUser(
+            req.params.id,
+            req.body
+        )
+
+        res.status(200).json({
+            data:{
+                id:user._id,
+                name:user.name,
+                email:user.email,
+                role:user.role,
+                status:user.status,
+                age:user.age,
+                gender:user.gender,
+                city:user.city,
+                country:user.country,
+                phone:user.phone,
                 createdAt:user.createdAt
             }
         })
@@ -66,9 +108,20 @@ const deleteById=async(req,res,next)=>{
         next(error)
     }
 }
+
+const headUser=async(req,res,next)=>{
+    try{
+        await userService.checkUserExists(req.params.id);
+        res.status(200).end();
+    }catch(error){
+        next(error)
+    }
+}
 module.exports={
     createUser,
     getUserById,
     updateById,
-    deleteById
+    patchUser,
+    deleteById,
+    headUser
 }

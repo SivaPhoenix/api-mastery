@@ -570,8 +570,8 @@ postman/
 [x] DELETE /api/v1/users/:id (Delete User)
 
 [ ] GET /api/v1/users (List, pagination, sorting & filtering)
-[ ] PATCH /api/v1/users/:id (Partial updates)
-[ ] HEAD /api/v1/users/:id
+[x] PATCH /api/v1/users/:id (Partial updates)
+[x] HEAD /api/v1/users/:id
 [ ] OPTIONS /api/v1/users/:id
 ```
 

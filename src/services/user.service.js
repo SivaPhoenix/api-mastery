@@ -59,9 +59,22 @@ const deleteUser=async(id)=>{
 
     return user;
 }
+
+const checkUserExists=async(id)=>{
+    const user=await userRepository.findById(id);
+    if(!user){
+        const error=new Error("User Not Found")
+        error.status=404;
+        error.code="USER_NOT_FOUND";
+        throw error;
+    }
+
+    return true;
+}
 module.exports={
     createUser,
     getUserById,
     updateUser,
-    deleteUser
+    deleteUser,
+    checkUserExists
 }
