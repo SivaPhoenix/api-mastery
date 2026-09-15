@@ -52,6 +52,24 @@ const getUsers=async (req,res,next)=>{
             };
         }
 
+        //search
+        if(req.query.search){
+            filters.$or=[
+                {
+                    name:{
+                        $regex:req.query.search,
+                        $options:'i'
+                    }
+                },
+                {
+                    email:{
+                        $regex:req.query.search,
+                        $options:'i'
+                    }
+                }
+            ]
+        }
+
         //comparing operators
         if (req.query.maxAge) {
             filters.age = {
