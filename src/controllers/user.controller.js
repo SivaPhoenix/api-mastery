@@ -62,8 +62,8 @@ const getUsers=async (req,res,next)=>{
 
         //sorting
 
-        const sort={
-            createdAt:1,
+        let sort={
+            createdAt:-1,
             _id:-1
         };
         if(req.query.sortBy){
