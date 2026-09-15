@@ -75,8 +75,23 @@ const getUsers=async (req,res,next)=>{
         }
 
         //pagination
-        const page=Number(req.query.page)||1
-        const limit=Number(req.query.limit)||10;
+        const page=req.query.page===undefined?1:Number(req.query.page);
+        const limit=req.query.limit===undefined?10:Number(req.query.limit);
+
+        if(!Number.isInteger(page)||page<1){
+            const error=new Error("Page Must be an interger greater than or equal to 1")
+            error.status=400;
+            error.code="INVALID_PAGE";
+            
+            throw error;
+        }
+
+        if (!Number.isInteger(limit)||limit<1||limit>100){
+            const error=new Error("Limit Must be an interger between 1 and 100")
+            error.status=400;
+            error.code="INVALID_LIMIT";
+            throw error;
+        }
 
         const skip=(page-1)*limit;
 
