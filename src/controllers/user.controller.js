@@ -61,10 +61,17 @@ const getUsers=async (req,res,next)=>{
         }
 
         //sorting
-        const sort={};
+
+        const sort={
+            createdAt:1,
+            _id:-1
+        };
         if(req.query.sortBy){
             const sortOrder=req.query.sortOrder === "desc" ? -1 : 1;
-            sort[req.query.sortBy]=sortOrder;
+            sort = {
+                [req.query.sortBy]: sortOrder,
+                _id: -1
+            };
         }
 
         //pagination
