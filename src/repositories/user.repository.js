@@ -5,8 +5,8 @@ const create = async (userData) => {
     return User.create(userData);
 }
 
-const findAll=async (filter={})=>{
-    return User.find(filter);
+const findAll=async (filter={},sort={})=>{
+    return User.find(filter).sort(sort);
 }
 
 const findByEmail = async (email) => {

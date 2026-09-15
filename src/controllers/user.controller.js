@@ -28,7 +28,7 @@ const createUser = async (req, res, next) => {
 }
 
 const getUsers=async (req,res,next)=>{
-    try {
+    try {   
         const filters={};
         if(req.query.gender){
             filters.gender=req.query.gender;
@@ -52,13 +52,23 @@ const getUsers=async (req,res,next)=>{
             };
         }
 
+        //comparing operators
         if (req.query.maxAge) {
             filters.age = {
                 ...filters.age,
                 $lte: Number(req.query.maxAge)
             };
         }
-        const users=await userService.getUsers(filters);
+
+        //sorting
+        const sort={};
+        if(req.query.sortBy){
+            const sortOrder=req.query.sortOrder === "desc" ? -1 : 1;
+            sort[req.query.sortBy]=sortOrder;
+        }
+        const users=await userService.getUsers(filters,sort);
+
+        
         res.status(200).json({
             data:users.map((user)=>({
                     id:user._id,
@@ -78,6 +88,7 @@ const getUsers=async (req,res,next)=>{
     } catch (error) {
         next(error)
     }
+
 }
 
 const getUserById = async (req, res, next) => {

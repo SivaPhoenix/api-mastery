@@ -18,8 +18,8 @@ const createUser=async(userData)=>{
     return user;
 }
 
-const getUsers=async(filter)=>{
-    return userRepository.findAll(filter);
+const getUsers=async(filter,sort)=>{
+    return userRepository.findAll(filter,sort);
 }
 
 const getUserById=async(id)=>{
