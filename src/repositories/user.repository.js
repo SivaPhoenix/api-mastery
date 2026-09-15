@@ -5,8 +5,20 @@ const create = async (userData) => {
     return User.create(userData);
 }
 
-const findAll=async (filter={},sort={})=>{
-    return User.find(filter).sort(sort);
+const findAll=async (
+    filter={},
+    sort={},
+    skip=0,
+    limit=10
+)=>{
+    const users = await User.find(filter).
+            sort(sort).
+            skip(skip).
+            limit(limit);
+    
+    const total=await User.countDocuments(filter);
+
+    return {users,total};
 }
 
 const findByEmail = async (email) => {

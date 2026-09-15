@@ -66,11 +66,28 @@ const getUsers=async (req,res,next)=>{
             const sortOrder=req.query.sortOrder === "desc" ? -1 : 1;
             sort[req.query.sortBy]=sortOrder;
         }
-        const users=await userService.getUsers(filters,sort);
 
+        //pagination
+        const page=Number(req.query.page)||1
+        const limit=Number(req.query.limit)||10;
+
+        const skip=(page-1)*limit;
+
+        //service
+
+        const result=await userService.getUsers(filters,sort,skip,limit);
+
+        //pagination metadata
+        const totalPages=Math.ceil(
+            result.total/limit
+        );
+
+        const hasNextPage=page<totalPages;
+        const hasPreviousPage=page>1;
         
+        //response
         res.status(200).json({
-            data:users.map((user)=>({
+            data:result.users.map((user)=>({
                     id:user._id,
                     name:user.name,
                     email:user.email,
@@ -83,7 +100,15 @@ const getUsers=async (req,res,next)=>{
                     phone:user.phone,
                     createdAt:user.createdAt,
                     updatedAt:user.updatedAt
-            }))
+            })),
+            pagination:{
+                page,
+                limit,
+                total:result.total,
+                totalPages,
+                hasNextPage,
+                hasPreviousPage
+            }
         })
     } catch (error) {
         next(error)
