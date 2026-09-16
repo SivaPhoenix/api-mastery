@@ -1,0 +1,391 @@
+{
+  "info": {
+    "_postman_id": "7f32fea5-aa7f-4e61-a47c-507b8101099f",
+    "name": "API-Mastery",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57875846",
+    "_collection_link": "https://go.postman.co/collection/57875846-7f32fea5-aa7f-4e61-a47c-507b8101099f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-master}}/api/v1/users/6aa93c142987aa67b6b487a3",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "6aa93c142987aa67b6b487a3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"test\",\r\n  \"email\": \"testdata@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-master}}/api/v1/users/6aa2a4ea151b657cea2bfa26",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "6aa2a4ea151b657cea2bfa26"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete By Id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api-master}}/api/v1/users/6aa159184b681e0aff18f473",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "6aa159184b681e0aff18f473"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Head",
+          "request": {
+            "method": "HEAD",
+            "header": [],
+            "url": {
+              "raw": "{{api-master}}/api/v1/users/6aa38647156c04d482e5ee6a",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "6aa38647156c04d482e5ee6a"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "OptionsUser",
+          "request": {
+            "method": "OPTIONS",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Siva123\",\r\n  \"email\": \"siva123@example.com\",\r\n  \"passwordHash\": \"temporary-hash\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-master}}/api/v1/users/6aa38647156c04d482e5ee6a",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "6aa38647156c04d482e5ee6a"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Siva123\",\r\n  \"email\": \"siva123@example.com\",\r\n  \"passwordHash\": \"temporary-hash\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-master}}/api/v1/users?search=arun&minAge=20&maxAge=60&sortBy=age&sortOrder=asc&limit=2&page=2",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "arun"
+                },
+                {
+                  "key": "minAge",
+                  "value": "20"
+                },
+                {
+                  "key": "maxAge",
+                  "value": "60"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "age"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "asc"
+                },
+                {
+                  "key": "limit",
+                  "value": "2"
+                },
+                {
+                  "key": "gender",
+                  "value": "male",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n  {\r\n    \"name\": \"Arun Kumar\",\r\n    \"email\": \"arun.kumar.test1@example.com\",\r\n    \"passwordHash\": \"temporary-hash\",\r\n    \"role\": \"customer\",\r\n    \"status\": \"active\",\r\n    \"age\": 19,\r\n    \"gender\": \"male\",\r\n    \"city\": \"Chennai\",\r\n    \"country\": \"India\",\r\n    \"phone\": \"9000000001\"\r\n  },\r\n  {\r\n    \"name\": \"Arun Raj\",\r\n    \"email\": \"arun.raj.test2@example.com\",\r\n    \"passwordHash\": \"temporary-hash\",\r\n    \"role\": \"customer\",\r\n    \"status\": \"active\",\r\n    \"age\": 27,\r\n    \"gender\": \"male\",\r\n    \"city\": \"Bangalore\",\r\n    \"country\": \"India\",\r\n    \"phone\": \"9000000002\"\r\n  },\r\n  {\r\n    \"name\": \"Arun Sharma\",\r\n    \"email\": \"arun.sharma.test3@example.com\",\r\n    \"passwordHash\": \"temporary-hash\",\r\n    \"role\": \"customer\",\r\n    \"status\": \"active\",\r\n    \"age\": 35,\r\n    \"gender\": \"male\",\r\n    \"city\": \"Mumbai\",\r\n    \"country\": \"India\",\r\n    \"phone\": \"9000000003\"\r\n  },\r\n  {\r\n    \"name\": \"Arun Verma\",\r\n    \"email\": \"arun.verma.test4@example.com\",\r\n    \"passwordHash\": \"temporary-hash\",\r\n    \"role\": \"customer\",\r\n    \"status\": \"active\",\r\n    \"age\": 48,\r\n    \"gender\": \"male\",\r\n    \"city\": \"Hyderabad\",\r\n    \"country\": \"India\",\r\n    \"phone\": \"9000000004\"\r\n  },\r\n  {\r\n    \"name\": \"Arun Wilson\",\r\n    \"email\": \"arun.wilson.test5@example.com\",\r\n    \"passwordHash\": \"temporary-hash\",\r\n    \"role\": \"customer\",\r\n    \"status\": \"active\",\r\n    \"age\": 62,\r\n    \"gender\": \"male\",\r\n    \"city\": \"Delhi\",\r\n    \"country\": \"India\",\r\n    \"phone\": \"9000000005\"\r\n  }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-master}}/api/v1/users",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "item": [
+        {
+          "name": "Get Product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-master}}/api/v1/products/6aaa4453420ed9c4d74bb76d",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "6aaa4453420ed9c4d74bb76d"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n  {\r\n    \"name\": \"Smart LED Bulb\",\r\n    \"description\": \"WiFi-enabled smart LED bulb with adjustable brightness\",\r\n    \"sku\": \"PF-TEST-BULB-001\",\r\n    \"price\": 899,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 50,\r\n    \"category\": \"Smart Home\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Smart Plug\",\r\n    \"description\": \"WiFi smart plug with mobile app control\",\r\n    \"sku\": \"PF-TEST-PLUG-001\",\r\n    \"price\": 1299,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 35,\r\n    \"category\": \"Smart Home\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Fitness Band\",\r\n    \"description\": \"Fitness tracker with heart rate and sleep monitoring\",\r\n    \"sku\": \"PF-TEST-BAND-001\",\r\n    \"price\": 2499,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 45,\r\n    \"category\": \"Wearables\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Smart Watch\",\r\n    \"description\": \"AMOLED smartwatch with fitness tracking\",\r\n    \"sku\": \"PF-TEST-WATCH-001\",\r\n    \"price\": 6999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 18,\r\n    \"category\": \"Wearables\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Power Bank 20000mAh\",\r\n    \"description\": \"High-capacity power bank with fast charging\",\r\n    \"sku\": \"PF-TEST-POWERBANK-001\",\r\n    \"price\": 1799,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 55,\r\n    \"category\": \"Accessories\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Bluetooth Earbuds\",\r\n    \"description\": \"True wireless earbuds with charging case\",\r\n    \"sku\": \"PF-TEST-EARBUDS-001\",\r\n    \"price\": 3299,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 30,\r\n    \"category\": \"Audio\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Soundbar\",\r\n    \"description\": \"2.1 channel soundbar for home entertainment\",\r\n    \"sku\": \"PF-TEST-SOUNDBAR-001\",\r\n    \"price\": 8999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 7,\r\n    \"category\": \"Audio\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Tablet 10 Inch\",\r\n    \"description\": \"10-inch Android tablet with 128GB storage\",\r\n    \"sku\": \"PF-TEST-TABLET-001\",\r\n    \"price\": 15999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 14,\r\n    \"category\": \"Computers\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Wireless Charger\",\r\n    \"description\": \"15W fast wireless charging pad\",\r\n    \"sku\": \"PF-TEST-CHARGER-001\",\r\n    \"price\": 1499,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 80,\r\n    \"category\": \"Accessories\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"HDMI Cable\",\r\n    \"description\": \"High-speed HDMI 2.1 cable\",\r\n    \"sku\": \"PF-TEST-HDMI-001\",\r\n    \"price\": 699,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 120,\r\n    \"category\": \"Accessories\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Desk Lamp\",\r\n    \"description\": \"LED desk lamp with adjustable color temperature\",\r\n    \"sku\": \"PF-TEST-LAMP-001\",\r\n    \"price\": 1599,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 25,\r\n    \"category\": \"Home Office\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Office Chair\",\r\n    \"description\": \"Ergonomic office chair with adjustable lumbar support\",\r\n    \"sku\": \"PF-TEST-CHAIR-001\",\r\n    \"price\": 12999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 6,\r\n    \"category\": \"Furniture\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Standing Desk\",\r\n    \"description\": \"Electric height-adjustable standing desk\",\r\n    \"sku\": \"PF-TEST-DESK-001\",\r\n    \"price\": 24999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 4,\r\n    \"category\": \"Furniture\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Gaming Controller\",\r\n    \"description\": \"Wireless gaming controller with vibration feedback\",\r\n    \"sku\": \"PF-TEST-CONTROLLER-001\",\r\n    \"price\": 3999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 22,\r\n    \"category\": \"Gaming\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"VR Headset\",\r\n    \"description\": \"Standalone virtual reality headset\",\r\n    \"sku\": \"PF-TEST-VR-001\",\r\n    \"price\": 29999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 0,\r\n    \"category\": \"Gaming\",\r\n    \"status\": \"inactive\"\r\n  }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-master}}/api/v1/products/bulk",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "bulk"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api-master}}/api/v1/products/6aaa4453420ed9c4d74bb771",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "6aaa4453420ed9c4d74bb771"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update by id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"price\": 27999,\r\n    \"stock\": 10,\r\n    \"status\": \"active\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-master}}/api/v1/products/6aaa4453420ed9c4d74bb778",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "6aaa4453420ed9c4d74bb778"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"userId\": \"6aa93c142987aa67b6b487a3\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"6aaa4453420ed9c4d74bb76d\",\r\n      \"quantity\": 3\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-master}}/api/v1/orders/",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-master}}/api/v1/orders/6aaa52534b717ce1454e55c8",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "6aaa52534b717ce1454e55c8"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

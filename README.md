@@ -555,6 +555,8 @@ postman/
 
 ## Current Progress
 
+### Project Setup
+
 ```text
 [x] Project setup
 [x] Production folder structure
@@ -562,17 +564,169 @@ postman/
 [x] MongoDB Atlas connection
 [x] Express server
 [x] Health endpoint
-[x] User model (name, email, passwordHash, role, status, age, gender, city, country, phone)
 [x] Centralized error middleware
-[x] POST /api/v1/users (Create User)
-[x] GET /api/v1/users/:id (Get User by ID)
-[x] PUT /api/v1/users/:id (Update User)
-[x] DELETE /api/v1/users/:id (Delete User)
+```
 
-[ ] GET /api/v1/users (List, pagination, sorting & filtering)
-[x] PATCH /api/v1/users/:id (Partial updates)
+### User API
+```text
+[x] User model
+    ├── name
+    ├── email
+    ├── passwordHash
+    ├── role
+    ├── status
+    ├── age
+    ├── gender
+    ├── city
+    ├── country
+    └── phone
+
+[x] POST /api/v1/users
+    └── Create User
+
+[x] GET /api/v1/users/:id
+    └── Get User by ID
+
+[x] GET /api/v1/users
+    ├── Filtering
+    ├── Multiple filters
+    ├── Comparison operators
+    ├── Sorting
+    ├── Default deterministic sorting
+    ├── Pagination
+    ├── Pagination metadata
+    ├── Pagination validation
+    ├── Maximum limit validation
+    ├── Page boundary validation
+    └── Search
+
+[x] PUT /api/v1/users/:id
+    └── Full update
+
+[x] PATCH /api/v1/users/:id
+    └── Partial update
+
+[x] DELETE /api/v1/users/:id
+    └── Delete User
+
 [x] HEAD /api/v1/users/:id
-[ ] OPTIONS /api/v1/users/:id
+    └── Resource existence check
+
+[x] OPTIONS /api/v1/users/:id
+    └── Supported HTTP methods
+```
+
+### Product API
+```text
+[x] Product model
+    ├── name
+    ├── description
+    ├── SKU
+    ├── price
+    ├── currency
+    ├── stock
+    ├── category
+    └── status
+
+[x] POST /api/v1/products
+    └── Create Product
+
+[x] POST /api/v1/products/bulk
+    └── Bulk Product Creation
+
+[x] GET /api/v1/products
+    └── List Products
+
+[x] GET /api/v1/products/:productId
+    └── Get Product by ID
+
+[x] PUT /api/v1/products/:productId
+    └── Update Product
+
+[x] DELETE /api/v1/products/:productId
+    └── Delete Product
+
+[x] Product ID validation
+[x] Duplicate SKU handling
+[x] Product validation errors
+[x] Centralized Product error handling
+
+```
+
+### Order API
+```text
+[x] Order model
+    ├── orderNumber
+    ├── userId
+    ├── items
+    ├── totalAmount
+    ├── currency
+    └── status
+
+[x] Order Item model
+    ├── productId
+    ├── quantity
+    └── price snapshot
+
+[x] POST /api/v1/orders
+    ├── User existence validation
+    ├── Empty items validation
+    ├── Product ID validation
+    ├── Product existence validation
+    ├── Product status validation
+    ├── Stock validation
+    ├── Multiple product support
+    ├── Order total calculation
+    └── Business order number generation
+
+[x] GET /api/v1/orders/:orderId
+    ├── Existing order
+    ├── Invalid Order ID validation
+    └── Order Not Found handling
+
+[x] GET /api/v1/users/:userId/orders
+    ├── Get orders by user
+    ├── User ID validation
+    └── User Not Found handling
+
+[x] Inactive Product handling
+[x] Insufficient Stock handling
+[x] Empty Items handling
+[x] Invalid Product ID handling
+[x] Multiple Products handling
+[x] Order price snapshot
+[x] Business Order Number
+```
+
+### Validation & Error Handling
+```text
+[x] Centralized error middleware
+[x] HTTP status + application error code separation
+[x] MongoDB duplicate key handling
+[x] Mongoose validation error handling
+[x] Resource Not Found errors
+[x] Invalid ObjectId handling
+[x] Business rule errors
+[ ] Request validation middleware
+[ ] Request schema validation
+[ ] Query parameter schema validation
+[ ] Body schema validation
+[ ] Reusable validation architecture
+[ ] Custom API Error class
+```
+
+### API Testing
+
+```text
+[x] Manual API testing
+[x] Positive test cases
+[x] Negative test cases
+[x] Invalid ObjectId testing
+[x] Resource Not Found testing
+[x] Business validation testing
+[ ] Automated unit tests
+[ ] Automated integration tests
+[ ] Automated E2E tests
 ```
 
 ## Learning Principle
