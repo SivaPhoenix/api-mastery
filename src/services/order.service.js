@@ -5,7 +5,7 @@ const productRepository = require("../repositories/product.repository");
 
 
 
-const generateOrderNumber = async () => {
+const generateOrderNumber = () => {
   const timestamp = Date.now();
   const randomPart = Math.floor(100000 + Math.random() * 900000);
 
