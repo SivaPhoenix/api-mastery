@@ -31,13 +31,16 @@ const errorMiddleware=(err,req,res,next)=>{
             }
         });
     }
-    
+
   const statusCode=err.status || 500;
   res.status(statusCode).json({
     success:false,
     error:{
         code:err.code || "INTERNAL_ERROR",
-        message:err.message || "Something went wrong"
+        message:err.message || "Something went wrong",
+        ...(err.details && {
+            details: err.details
+        })
     }
   })  
 };
