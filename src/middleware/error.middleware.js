@@ -1,48 +1,47 @@
-const errorMiddleware=(err,req,res,next)=>{
+const ERROR_CODES = require("../constants/error-codes");
+const HTTP_STATUS = require("../constants/http-status");
 
-  //mongo DB duplicate key error 
+const errorMiddleware = (err, req, res, next) => {
+  // MongoDB duplicate key error
+  if (err.code === 11000) {
+    const duplicateField = Object.keys(err.keyPattern || {})[0];
 
-  if(err.code===11000){
-    const duplicateField=Object.keys(err.keyPattern||{})[0];;
-
-    return res.status(409).json({
-      success:false,
-      error:{
-        code:"DUPLICATE_KEY",
-        message:`${duplicateField} already exists.`
+    return res.status(HTTP_STATUS.CONFLICT).json({
+      success: false,
+      error: {
+        code: ERROR_CODES.DUPLICATE_KEY,
+        message: `${duplicateField} already exists.`
       }
-    })
+    });
   }
+
   if (err.name === "ValidationError") {
+    const validationErrors = Object.values(err.errors).map((error) => ({
+      field: error.path,
+      message: error.message
+    }));
 
-        const validationErrors = Object.values(
-            err.errors
-        ).map((error) => ({
-            field: error.path,
-            message: error.message
-        }));
+    return res.status(HTTP_STATUS.BAD_REQUEST).json({
+      success: false,
+      error: {
+        code: ERROR_CODES.VALIDATION_ERROR,
+        message: "Request validation failed",
+        details: validationErrors
+      }
+    });
+  }
 
-        return res.status(400).json({
-            success: false,
-            error: {
-                code: "VALIDATION_ERROR",
-                message: "Request validation failed",
-                details: validationErrors
-            }
-        });
-    }
-
-  const statusCode=err.status || 500;
+  const statusCode = err.status || HTTP_STATUS.INTERNAL_SERVER_ERROR;
   res.status(statusCode).json({
-    success:false,
-    error:{
-        code:err.code || "INTERNAL_ERROR",
-        message:err.message || "Something went wrong",
-        ...(err.details && {
-            details: err.details
-        })
+    success: false,
+    error: {
+      code: err.code || ERROR_CODES.INTERNAL_ERROR,
+      message: err.message || "Something went wrong",
+      ...(err.details && {
+        details: err.details
+      })
     }
-  })  
+  });
 };
 
-module.exports=errorMiddleware;
+module.exports = errorMiddleware;

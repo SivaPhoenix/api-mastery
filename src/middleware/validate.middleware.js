@@ -1,4 +1,6 @@
 const ApiError = require("../utils/api-error");
+const ERROR_CODES = require("../constants/error-codes");
+const HTTP_STATUS = require("../constants/http-status");
 
 const validate=(schema,property)=>{
     return (req,res,next)=>{
@@ -13,8 +15,8 @@ const validate=(schema,property)=>{
             );
             return next(
                 new ApiError(
-                    400,
-                    "VALIDATION_ERROR",
+                    HTTP_STATUS.BAD_REQUEST,
+                    ERROR_CODES.VALIDATION_ERROR,
                     "Request Validation failed",
                     details
                 )

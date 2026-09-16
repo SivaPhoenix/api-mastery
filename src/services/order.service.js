@@ -1,9 +1,11 @@
-const mongoose=require("mongoose")
+const mongoose = require("mongoose");
 const orderRepository = require("../repositories/order.repository");
 const userRepository = require("../repositories/user.repository");
 const productRepository = require("../repositories/product.repository");
 
 const ApiError = require("../utils/api-error");
+const ERROR_CODES = require("../constants/error-codes");
+const HTTP_STATUS = require("../constants/http-status");
 
 const generateOrderNumber = () => {
   const timestamp = Date.now();
@@ -18,74 +20,72 @@ const createOrder = async (orderData) => {
 
   if (!user) {
     throw new ApiError(
-      404,
-      "USER_NOT_FOUND",
+      HTTP_STATUS.NOT_FOUND,
+      ERROR_CODES.USER_NOT_FOUND,
       "User not found"
-    )
+    );
   }
 
   //validate Order items
   if (!Array.isArray(orderData.items) || orderData.items.length === 0) {
     throw new ApiError(
-      400,
-      "INVALID_ORDER_ITEMS",
+      HTTP_STATUS.BAD_REQUEST,
+      ERROR_CODES.INVALID_ORDER_ITEMS,
       "Order must contains at least one item"
-    )
+    );
   }
 
   //Build order items
-  const orderItems=[];
+  const orderItems = [];
 
-  for(const item of orderData.items){
+  for (const item of orderData.items) {
+    const productId = item.productId;
 
-    const productId=item.productId
-
-    if(!mongoose.Types.ObjectId.isValid(productId)){
-        throw new ApiError(
-            400,
-            "INVALID_PRODUCT_ID",
-            `Product ${productId} is not valid`
-        )
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      throw new ApiError(
+        HTTP_STATUS.BAD_REQUEST,
+        ERROR_CODES.INVALID_PRODUCT_ID,
+        `Product ${productId} is not valid`
+      );
     }
 
-    const product= await productRepository.findById(productId);
+    const product = await productRepository.findById(productId);
 
-    if(!product){
-        throw new ApiError(
-            404,
-            "PRODUCT_NOT_FOUND",
-            `Product ${productId} does not exist`
-        )
+    if (!product) {
+      throw new ApiError(
+        HTTP_STATUS.NOT_FOUND,
+        ERROR_CODES.PRODUCT_NOT_FOUND,
+        `Product ${productId} does not exist`
+      );
     }
 
-    if(product.status!=="active"){{
-        throw new ApiError(
-            400,
-            "PRODUCT_NOT_ACTIVE",
-            `Product ${product.name} is not active`
-        );  
-    } }
+    if (product.status !== "active") {
+      throw new ApiError(
+        HTTP_STATUS.BAD_REQUEST,
+        ERROR_CODES.PRODUCT_NOT_ACTIVE,
+        `Product ${product.name} is not active`
+      );
+    }
 
-    if(product.stock<item.quantity){
-        throw new ApiError(
-            409,
-            "INSUFFICIENT_STOCK",
-            `Insufficient stock for product ${product.name}`
-        );
+    if (product.stock < item.quantity) {
+      throw new ApiError(
+        HTTP_STATUS.CONFLICT,
+        ERROR_CODES.INSUFFICIENT_STOCK,
+        `Insufficient stock for product ${product.name}`
+      );
     }
 
     orderItems.push({
-        productId:product._id,
-        quantity:item.quantity,
-        price:product.price
+      productId: product._id,
+      quantity: item.quantity,
+      price: product.price
     });
   }
 
-    // Calculate Total Order Amount
-    const totalAmount = orderItems.reduce((total, item) => {
-        return total + item.price * item.quantity;
-    }, 0);
-
+  // Calculate Total Order Amount
+  const totalAmount = orderItems.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
 
   //Generate Business Order Number
   const orderNumber = generateOrderNumber();
@@ -108,10 +108,10 @@ const getOrderById = async (orderId) => {
 
   if (!order) {
     throw new ApiError(
-      404,
-      "ORDER_NOT_FOUND",
+      HTTP_STATUS.NOT_FOUND,
+      ERROR_CODES.ORDER_NOT_FOUND,
       "Order not found"
-    )
+    );
   }
   return order;
 };
@@ -121,10 +121,10 @@ const getOrderByUserId = async (userId) => {
 
   if (!user) {
     throw new ApiError(
-      404,
-      "USER_NOT_FOUND",
+      HTTP_STATUS.NOT_FOUND,
+      ERROR_CODES.USER_NOT_FOUND,
       "User not found"
-    )
+    );
   }
 
   return orderRepository.findByUserId(userId);

@@ -1,12 +1,14 @@
 const mongoose=require("mongoose");
 const userService = require("../services/user.service");
 const ApiError = require("../utils/api-error");
+const ERROR_CODES = require("../constants/error-codes");
+const HTTP_STATUS = require("../constants/http-status");
 
 const createUser = async (req, res, next) => {
     try {
         const user = await userService.createUser(req.body);
 
-        res.status(201).json({
+        res.status(HTTP_STATUS.CREATED).json({
             data: {
                 id: user._id,
                 name: user.name,
@@ -99,11 +101,19 @@ const getUsers=async (req,res,next)=>{
         const limit=req.query.limit===undefined?10:Number(req.query.limit);
 
         if(!Number.isInteger(page)||page<1){
-            throw new ApiError(400, "INVALID_PAGE", "Page Must be an integer greater than or equal to 1");
+            throw new ApiError(
+                HTTP_STATUS.BAD_REQUEST,
+                ERROR_CODES.INVALID_PAGE,
+                "Page Must be an integer greater than or equal to 1"
+            );
         }
 
         if (!Number.isInteger(limit)||limit<1||limit>100){
-            throw new ApiError(400, "INVALID_LIMIT", "Limit Must be an integer between 1 and 100");
+            throw new ApiError(
+                HTTP_STATUS.BAD_REQUEST,
+                ERROR_CODES.INVALID_LIMIT,
+                "Limit Must be an integer between 1 and 100"
+            );
         }
 
         const skip=(page-1)*limit;
@@ -121,7 +131,7 @@ const getUsers=async (req,res,next)=>{
         const hasPreviousPage=page>1;
         
         //response
-        res.status(200).json({
+        res.status(HTTP_STATUS.OK).json({
             data:result.users.map((user)=>({
                     id:user._id,
                     name:user.name,
@@ -157,12 +167,16 @@ const getUserById = async (req, res, next) => {
         const userId=req.params.id;
 
         if(!mongoose.Types.ObjectId.isValid(userId)){
-            throw new ApiError(400, "INVALID_USER_ID", "Invalid User Id");
+            throw new ApiError(
+                HTTP_STATUS.BAD_REQUEST,
+                ERROR_CODES.INVALID_USER_ID,
+                "Invalid User Id"
+            );
         }
 
         const user=await userService.getUserById(userId);
 
-        res.status(200).json({
+        res.status(HTTP_STATUS.OK).json({
             data: {
                 id: user._id,
                 name: user.name,
@@ -186,7 +200,7 @@ const getUserById = async (req, res, next) => {
 const updateById = async (req, res, next) => {
     try {
         const user = await userService.updateUser(req.params.id, req.body);
-        res.status(200).json({
+        res.status(HTTP_STATUS.OK).json({
             data: {
                 id: user._id,
                 name: user.name,
@@ -214,7 +228,7 @@ const patchUser = async (req, res, next) => {
             req.body
         )
 
-        res.status(200).json({
+        res.status(HTTP_STATUS.OK).json({
             data: {
                 id: user._id,
                 name: user.name,
@@ -239,7 +253,7 @@ const deleteById = async (req, res, next) => {
     try {
         const user = await userService.deleteUser(req.params.id)
 
-        res.status(200).json({
+        res.status(HTTP_STATUS.OK).json({
             message: "User deleted successfully"
         })
     } catch (error) {
@@ -250,7 +264,7 @@ const deleteById = async (req, res, next) => {
 const headUser = async (req, res, next) => {
     try {
         await userService.checkUserExists(req.params.id);
-        res.status(200).end();
+        res.status(HTTP_STATUS.OK).end();
     } catch (error) {
         next(error)
     }
@@ -262,7 +276,7 @@ const optionUser = async (req, res, next) => {
             "Allow": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
         })
 
-        res.status(200).end();
+        res.status(HTTP_STATUS.OK).end();
     } catch (error) {
         next(error)
     }
