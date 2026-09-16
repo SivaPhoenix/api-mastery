@@ -1,4 +1,5 @@
-const userRepository=require("../repositories/user.repository")
+const userRepository=require("../repositories/user.repository");
+const ApiError = require("../utils/api-error");
 
 const createUser=async(userData)=>{
     const existingUser=await userRepository.findByEmail(
@@ -6,11 +7,7 @@ const createUser=async(userData)=>{
     );
 
     if (existingUser){
-        const error=new Error("User already Exist");
-        error.status=409;
-        error.code="USER_ALREADY_EXISTS"
-
-        throw error;
+        throw new ApiError(409, "USER_ALREADY_EXISTS", "User already exists");
     }
 
     const user=await userRepository.create(userData);
@@ -31,11 +28,7 @@ const getUserById=async(id)=>{
     const user=await userRepository.findById(id);
 
     if (!user){
-        const error=new Error("User not Found");
-        error.status=404;
-        error.code="USER_NOT_FOUND"
-
-        throw error;
+        throw new ApiError(404, "USER_NOT_FOUND", "User not found");
     }
 
     return user;
@@ -45,11 +38,7 @@ const updateUser= async(id,userData)=>{
     const user = await userRepository.updateById(id,userData);
 
     if(!user){
-        const error = new Error("User Not found");
-        error.status=404;
-        error.code="USER_NOT_FOUND";
-
-        throw error;
+        throw new ApiError(404, "USER_NOT_FOUND", "User not found");
     }
 
     return user;
@@ -59,11 +48,7 @@ const deleteUser=async(id)=>{
     const user = await userRepository.deleteById(id);
 
     if(!user){
-        const error = new Error("User Not found");
-        error.status=404;
-        error.code="USER_NOT_FOUND";
-
-        throw error;
+        throw new ApiError(404, "USER_NOT_FOUND", "User not found");
     }
 
     return user;
@@ -72,10 +57,7 @@ const deleteUser=async(id)=>{
 const checkUserExists=async(id)=>{
     const user=await userRepository.findById(id);
     if(!user){
-        const error=new Error("User Not Found")
-        error.status=404;
-        error.code="USER_NOT_FOUND";
-        throw error;
+        throw new ApiError(404, "USER_NOT_FOUND", "User not found");
     }
 
     return true;

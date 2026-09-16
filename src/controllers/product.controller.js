@@ -1,6 +1,6 @@
 const mongoose=require("mongoose");
-
 const productService=require("../services/product.service");
+const ApiError=require("../utils/api-error");
 
 const createProduct=async(req,res,next)=>{
     try{
@@ -50,10 +50,7 @@ const getProductById=async(req,res,next)=>{
     try{
         const productId=req.params.productId;
         if(!mongoose.Types.ObjectId.isValid(productId)){
-            const error=new Error("Invalid product ID");
-            error.status=400;
-            error.code="INVALID_PRODUCT_ID";
-            throw error;
+            throw new ApiError(400, "INVALID_PRODUCT_ID", "Invalid product ID");
         }
         const product=await productService.getProductById(productId);
         res.status(200).json(
@@ -71,10 +68,7 @@ const updateProduct=async(req,res,next)=>{
     try{
         const productId=req.params.productId;
         if(!mongoose.Types.ObjectId.isValid(productId)){
-            const error=new Error("Invalid product ID");
-            error.status=400;
-            error.code="INVALID_PRODUCT_ID";
-            throw error;
+            throw new ApiError(400, "INVALID_PRODUCT_ID", "Invalid product ID");
         }
         const product=await productService.updateProduct(productId,req.body);
         res.status(200).json(
@@ -92,10 +86,7 @@ const deleteProduct=async(req,res,next)=>{
     try{
         const productId=req.params.productId;
         if(!mongoose.Types.ObjectId.isValid(productId)){
-            const error=new Error("Invalid product ID");
-            error.status=400;
-            error.code="INVALID_PRODUCT_ID";
-            throw error;
+            throw new ApiError(400, "INVALID_PRODUCT_ID", "Invalid product ID");
         }
         const product=await productService.deleteProduct(productId);
         res.status(200).json(

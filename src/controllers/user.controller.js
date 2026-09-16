@@ -1,5 +1,6 @@
 const mongoose=require("mongoose");
-const userService = require("../services/user.service")
+const userService = require("../services/user.service");
+const ApiError = require("../utils/api-error");
 
 const createUser = async (req, res, next) => {
     try {
@@ -98,18 +99,11 @@ const getUsers=async (req,res,next)=>{
         const limit=req.query.limit===undefined?10:Number(req.query.limit);
 
         if(!Number.isInteger(page)||page<1){
-            const error=new Error("Page Must be an interger greater than or equal to 1")
-            error.status=400;
-            error.code="INVALID_PAGE";
-            
-            throw error;
+            throw new ApiError(400, "INVALID_PAGE", "Page Must be an integer greater than or equal to 1");
         }
 
         if (!Number.isInteger(limit)||limit<1||limit>100){
-            const error=new Error("Limit Must be an interger between 1 and 100")
-            error.status=400;
-            error.code="INVALID_LIMIT";
-            throw error;
+            throw new ApiError(400, "INVALID_LIMIT", "Limit Must be an integer between 1 and 100");
         }
 
         const skip=(page-1)*limit;
@@ -163,10 +157,7 @@ const getUserById = async (req, res, next) => {
         const userId=req.params.id;
 
         if(!mongoose.Types.ObjectId.isValid(userId)){
-            const error=new Error("Invalid User Id")
-            error.status=400;
-            error.code="INVALID_USER_ID";
-            throw error;
+            throw new ApiError(400, "INVALID_USER_ID", "Invalid User Id");
         }
 
         const user=await userService.getUserById(userId);

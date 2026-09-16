@@ -1,6 +1,6 @@
 const mongoose=require("mongoose");
-
 const orderService=require("../services/order.service");
+const ApiError=require("../utils/api-error");
 
 
 const createOrder=async(req,res,next)=>{
@@ -31,10 +31,7 @@ const getOrderById=async(req,res,next)=>{
         const orderId=req.params.orderId;
 
         if(!mongoose.Types.ObjectId.isValid(orderId)){
-            const error=new Error("Invalid Order ID");
-            error.code=400;
-            error.code="INVALID_ORDER_ID";
-            throw error;
+            throw new ApiError(400, "INVALID_ORDER_ID", "Invalid Order ID");
         }
 
         const order=await orderService.getOrderById(orderId);
@@ -65,10 +62,7 @@ const getOrderByUserId=async(req,res,next)=>{
         const userId=req.params.userId;
 
         if(!mongoose.Types.ObjectId.isValid(userId)){
-            const error=new Error("Invalid User ID");
-            error.code=400;
-            error.code="INVALID_USER_ID";
-            throw error;
+            throw new ApiError(400, "INVALID_USER_ID", "Invalid User ID");
         }
 
         const orders=await orderService.getOrderByUserId(userId);

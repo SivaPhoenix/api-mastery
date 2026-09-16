@@ -19,7 +19,7 @@ const findBySku=async(sku)=>{
 const findAll=async()=>{
     return Product.find().sort(
         {
-            creatAt:-1,
+            createdAt:-1,
             _id:-1
         }
     )

@@ -707,12 +707,12 @@ postman/
 [x] Resource Not Found errors
 [x] Invalid ObjectId handling
 [x] Business rule errors
-[ ] Request validation middleware
-[ ] Request schema validation
+[x] Request validation middleware
+[x] Request schema validation
 [ ] Query parameter schema validation
-[ ] Body schema validation
-[ ] Reusable validation architecture
-[ ] Custom API Error class
+[x] Body schema validation
+[x] Reusable validation architecture
+[x] Custom API Error class
 ```
 
 ### API Testing
