@@ -22,7 +22,7 @@ const createOrder = async (orderData) => {
   }
 
   //validate Order items
-  if (!Array.isArray(orderData.item) || orderData.items.length === 0) {
+  if (!Array.isArray(orderData.items) || orderData.items.length === 0) {
     const error = new Error("Order must contains at least one item ");
     error.code = 400;
     error.code = "INVALID_ORDER_ITEMS";
