@@ -1,3 +1,4 @@
+const mongoose=require("mongoose");
 const userService = require("../services/user.service")
 
 const createUser = async (req, res, next) => {
@@ -158,7 +159,18 @@ const getUsers=async (req,res,next)=>{
 
 const getUserById = async (req, res, next) => {
     try {
-        const user = await userService.getUserById(req.params.id);
+
+        const userId=req.params.id;
+
+        if(!mongoose.Types.ObjectId.isValid(userId)){
+            const error=new Error("Invalid User Id")
+            error.status=400;
+            error.code="INVALID_USER_ID";
+            throw error;
+        }
+
+        const user=await userService.getUserById(userId);
+
         res.status(200).json({
             data: {
                 id: user._id,
