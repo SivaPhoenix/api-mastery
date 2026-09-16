@@ -1,6 +1,8 @@
+const mongoose=require("mongoose")
 const orderRepository = require("../repositories/order.repository");
 const userRepository = require("../repositories/user.repository");
 const productRepository = require("../repositories/product.repository");
+
 
 
 const generateOrderNumber = async () => {
@@ -33,7 +35,17 @@ const createOrder = async (orderData) => {
   const orderItems=[];
 
   for(const item of orderData.items){
-    const product= await productRepository.findById(item.productId);
+
+    const productId=item.productId
+
+    if(!mongoose.Types.ObjectId.isValid(productId)){
+        const error=new Error(`Product ${item.productId} is not valid`);
+        error.status=400;
+        error.code="INVALID_PRODUCT_ID";
+        throw error;
+    }
+
+    const product= await productRepository.findById(productId);
 
     if(!product){
         const error= new Error(`Product ${item.productId} does not exists`);
@@ -52,7 +64,7 @@ const createOrder = async (orderData) => {
 
     if(product.stock<item.quantity){
         const error=new Error(`Insufficient stock for product ${product.name}`);
-        error.status=400;
+        error.status=409;
         error.code="INSUFFICIENT_STOCK"
         throw error;
     }
