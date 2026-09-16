@@ -15,8 +15,8 @@ const createOrder = async (orderData) => {
   const user = await userRepository.findById(orderData.userId);
 
   if (!user) {
-    throw new Error("User Not Found");
-    error.code = 404;
+    const error=new Error("User Not Found");
+    error.status=404;
     error.code = "USER_NOT_FOUND";
     throw error;
   }
@@ -24,7 +24,7 @@ const createOrder = async (orderData) => {
   //validate Order items
   if (!Array.isArray(orderData.items) || orderData.items.length === 0) {
     const error = new Error("Order must contains at least one item ");
-    error.code = 400;
+    error.status=400;
     error.code = "INVALID_ORDER_ITEMS";
     throw error;
   }
@@ -37,7 +37,7 @@ const createOrder = async (orderData) => {
 
     if(!product){
         const error= new Error(`Product ${item.productId} does not exists`);
-        error.code=404;
+        error.status=404;
         error.code="PRODUCT_NOT_FOUND";
         throw error;
     }
@@ -45,14 +45,14 @@ const createOrder = async (orderData) => {
     if(product.status!=="active"){{const error=new Error(
             `Prodcut ${product.name} is not active`
         );
-        error.code=400;
+        error.status=400;
         error.code="PRODUCT_NOT_ACTIVE"
         throw error;
     }}
 
     if(product.stock<item.quantity){
         const error=new Error(`Insufficient stock for product ${product.name}`);
-        error.code=400;
+        error.status=400;
         error.code="INSUFFICIENT_STOCK"
         throw error;
     }
