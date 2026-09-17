@@ -3,7 +3,7 @@ const userRoutes = require("./routes/user.routes");
 const orderRoutes = require("./routes/order.route");
 const productRoutes=require("./routes/product.route")
 const errorMiddleware = require("./middleware/error.middleware");
-
+const authRoutes = require("./routes/auth.route");
 
 const app = express();
 
@@ -22,6 +22,7 @@ app.get("/health", (req, res) => {
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/orders",orderRoutes);
 app.use("/api/v1/products",productRoutes);
+app.use("/api/v1/auth",authRoutes)
 
 app.use(errorMiddleware);
 
