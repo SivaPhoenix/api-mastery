@@ -1,6 +1,6 @@
 const authRepository = require("../repositories/auth.repository");
 const { hashPassword, comparePassword } = require("../utils/password");
-
+const {generateAccessToken}=require("../utils/jwt");
 const ApiError = require("../utils/api-error");
 const HTTP_STATUS = require("../constants/http-status");
 const ERROR_CODES = require("../constants/error-codes");
@@ -63,7 +63,9 @@ const login=async(email,password)=>{
         )
     }
 
-    return user;
+    const accessToken=generateAccessToken(user);
+
+    return {user,accessToken};
 }
 module.exports={
     register,

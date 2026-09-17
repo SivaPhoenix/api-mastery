@@ -28,7 +28,7 @@ const register = async (req, res, next) => {
 
 const login =async(req,res,next)=>{
   try{
-    const user=await authService.login(
+    const {user,accessToken}=await authService.login(
       req.body.email,
       req.body.password
     );
@@ -36,11 +36,13 @@ const login =async(req,res,next)=>{
     res.status(HTTP_STATUS.OK).json({
       success:true,
       data:{
-        id:user._id,
-        name:user.name,
-        email:user.email,
-        role:user.role,
-        status:user.status
+        accessToken,
+        user:{
+          id:user._id,
+          name:user.name,
+          email:user.email,
+          role:user.role
+        }
       }
     });
   }
