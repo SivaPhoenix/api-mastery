@@ -26,4 +26,27 @@ const register = async (req, res, next) => {
   }
 };
 
-module.exports = { register };
+const login =async(req,res,next)=>{
+  try{
+    const user=await authService.login(
+      req.body.email,
+      req.body.password
+    );
+
+    res.status(HTTP_STATUS.OK).json({
+      success:true,
+      data:{
+        id:user._id,
+        name:user.name,
+        email:user.email,
+        role:user.role,
+        status:user.status
+      }
+    });
+  }
+  catch(error){
+    next(error)
+  }
+}
+
+module.exports = { register,login };

@@ -11,4 +11,10 @@ const registerSchema=Joi.object({
     phone: Joi.string().trim().max(20)
 });
 
-module.exports = { registerSchema };
+
+const loginSchema=Joi.object({
+    email:Joi.string().trim().lowercase().required().email(),
+    password:Joi.string().required(),
+})
+
+module.exports = { registerSchema,loginSchema };
