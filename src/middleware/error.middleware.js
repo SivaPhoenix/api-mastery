@@ -10,15 +10,15 @@ const errorMiddleware = (err, req, res, next) => {
       success: false,
       error: {
         code: ERROR_CODES.DUPLICATE_KEY,
-        message: `${duplicateField} already exists.`
-      }
+        message: `${duplicateField} already exists.`,
+      },
     });
   }
 
   if (err.name === "ValidationError") {
     const validationErrors = Object.values(err.errors).map((error) => ({
       field: error.path,
-      message: error.message
+      message: error.message,
     }));
 
     return res.status(HTTP_STATUS.BAD_REQUEST).json({
@@ -26,8 +26,28 @@ const errorMiddleware = (err, req, res, next) => {
       error: {
         code: ERROR_CODES.VALIDATION_ERROR,
         message: "Request validation failed",
-        details: validationErrors
-      }
+        details: validationErrors,
+      },
+    });
+  }
+
+  if (err.name === "TokenExpiredError") {
+    return res.status(HTTP_STATUS.UNAUTHORIZED).json({
+      success: false,
+      error: {
+        code: ERROR_CODES.INVALID_TOKEN,
+        message: "Invalid or expired access token",
+      },
+    });
+  }
+
+  if (err.name === "JsonWebTokenError") {
+    return res.status(HTTP_STATUS.UNAUTHORIZED).json({
+      success: false,
+      error: {
+        code: ERROR_CODES.INVALID_TOKEN,
+        message: "Invalid or expired access token",
+      },
     });
   }
 
@@ -38,9 +58,9 @@ const errorMiddleware = (err, req, res, next) => {
       code: err.code || ERROR_CODES.INTERNAL_ERROR,
       message: err.message || "Something went wrong",
       ...(err.details && {
-        details: err.details
-      })
-    }
+        details: err.details,
+      }),
+    },
   });
 };
 

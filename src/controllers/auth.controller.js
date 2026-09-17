@@ -51,4 +51,19 @@ const login =async(req,res,next)=>{
   }
 }
 
-module.exports = { register,login };
+const getCurrentUser=async(req,res,next)=>{
+  try{
+    res.status(HTTP_STATUS.OK).json({
+      success:true,
+      data:{
+        sub:req.user.sub,
+        role:req.user.role
+      }
+    })
+  }
+  catch(error){
+    next(error)
+  }
+}
+
+module.exports = { register,login,getCurrentUser };
