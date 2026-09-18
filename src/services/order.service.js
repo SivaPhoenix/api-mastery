@@ -103,7 +103,7 @@ const createOrder = async (orderData) => {
   return order;
 };
 
-const getOrderById = async (orderId) => {
+const getOrderById = async (orderId,currentUser) => {
   const order = await orderRepository.findById(orderId);
 
   if (!order) {
@@ -113,10 +113,33 @@ const getOrderById = async (orderId) => {
       "Order not found"
     );
   }
+
+  const isAdmin=currentUser.role=="admin";
+  const isOwner=order.userId.toString()===currentUser.sub.toString();
+
+  if(!isAdmin && !isOwner){
+    throw new ApiError(
+      HTTP_STATUS.FORBIDDEN,
+      ERROR_CODES.FORBIDDEN,
+      "You do not have permission to view this order"
+    )
+  }
   return order;
 };
 
-const getOrderByUserId = async (userId) => {
+const getOrderByUserId = async (userId,currentUser) => {
+  
+  const isAdmin=currentUser.role=="admin";
+  const isOwner=userId.toString()===currentUser.sub.toString();
+
+  if(!isAdmin && !isOwner){
+    throw new ApiError(
+      HTTP_STATUS.FORBIDDEN,
+      ERROR_CODES.FORBIDDEN,
+      "You do not have permission to view orders"
+    )
+  }
+  
   const user = await userRepository.findById(userId);
 
   if (!user) {

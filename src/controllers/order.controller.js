@@ -39,7 +39,7 @@ const getOrderById = async (req, res, next) => {
             );
         }
 
-        const order = await orderService.getOrderById(orderId);
+        const order = await orderService.getOrderById(orderId,req.user);
 
         res.status(HTTP_STATUS.OK).json({
             success: true,
@@ -72,7 +72,7 @@ const getOrderByUserId = async (req, res, next) => {
             );
         }
 
-        const orders = await orderService.getOrderByUserId(userId);
+        const orders = await orderService.getOrderByUserId(userId,req.user);
 
         res.status(HTTP_STATUS.OK).json({
             success: true,
