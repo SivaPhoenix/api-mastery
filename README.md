@@ -106,6 +106,9 @@ src/
 │   ├── integration/
 │   └── e2e/
 │
+├── docs/
+│   └── AUTHENTICATION-AUTHORIZATION.md
+│
 └── postman/
 ```
 
@@ -144,6 +147,10 @@ HTTP Response
    ↓
 Client
 ```
+
+## Documentation
+
+- **[Authentication & Authorization Guide](docs/AUTHENTICATION-AUTHORIZATION.md)**: Deep-dive architecture and implementation guide covering authentication (registration, login, bcrypt password hashing, JWT access tokens, verification middleware), authorization (RBAC, resource-level ownership, admin overrides, BOLA/IDOR protection), 401 vs 403 status semantics, and security test matrices.
 
 ## API Mastery Progress
 
@@ -187,12 +194,16 @@ Client
 
 ### Phase 5 — Authentication
 
+> Documentation: [docs/AUTHENTICATION-AUTHORIZATION.md](docs/AUTHENTICATION-AUTHORIZATION.md)
+
 - JWT
 - Access tokens
 - Refresh tokens
 - Sessions
 
 ### Phase 6 — API Security
+
+> Documentation: [docs/AUTHENTICATION-AUTHORIZATION.md](docs/AUTHENTICATION-AUTHORIZATION.md)
 
 - BOLA/IDOR
 - Injection
@@ -504,6 +515,14 @@ Expected:
 }
 ```
 
+### 5. Authentication Endpoints
+
+> Detailed flow, request/response structures, and security rules: [docs/AUTHENTICATION-AUTHORIZATION.md](docs/AUTHENTICATION-AUTHORIZATION.md)
+
+- **Register User**: `POST /api/v1/auth/register` (Password hashed with bcrypt, default role `customer`)
+- **Login User**: `POST /api/v1/auth/login` (Returns JWT access token with 15-minute expiration)
+- **Current User Profile**: `GET /api/v1/auth/me` (Protected with `authenticate` Bearer JWT middleware)
+
 ### Error Response Format
 All errors handled by the centralized error middleware adhere to:
 ```json
@@ -713,6 +732,139 @@ postman/
 [x] Body schema validation
 [x] Reusable validation architecture
 [x] Custom API Error class
+```
+
+### Authentication & Authorization
+
+> Detailed documentation: [docs/AUTHENTICATION-AUTHORIZATION.md](docs/AUTHENTICATION-AUTHORIZATION.md)
+
+```text
+[x] User Registration (POST /api/v1/auth/register)
+    ├── Password hashing (bcrypt, salt rounds = 12)
+    ├── Client role injection prevention (default: customer)
+    └── Joi request validation
+
+[x] User Login (POST /api/v1/auth/login)
+    ├── Credential verification (generic error message)
+    ├── Account status verification (active vs blocked)
+    └── JWT access token generation (HS256, 15m expiration)
+
+[x] Authentication Middleware (authenticate)
+    ├── Bearer token extraction
+    ├── JWT signature verification (jwt.verify)
+    └── req.user identity population
+
+[x] Protected Endpoint (GET /api/v1/auth/me)
+
+[x] Role-Based Access Control (RBAC)
+    ├── Role authorization middleware (authorize)
+    └── Admin-only endpoint protection (GET /api/v1/users)
+
+[x] Resource-Level Authorization & Ownership
+    ├── Order ownership verification (isOwner check)
+    ├── Admin override on resource access (isAdmin check)
+    └── User orders collection authorization (GET /api/v1/users/:userId/orders)
+
+[x] Security & BOLA/IDOR Protections
+    ├── Broken Object Level Authorization prevention
+    ├── User ID parameter tampering protection
+    └── 401 Unauthorized vs 403 Forbidden semantics & test matrix
+
+[ ] Permission-Based Authorization
+    ├── Role vs permission
+    ├── Permission design
+    ├── Mapping roles → permissions
+    ├── requirePermission() middleware
+    ├── Multiple permissions
+    ├── AND vs OR permission requirements
+    ├── Applying permissions to PayFlow endpoints
+    ├── Testing authorization failures
+    └── RBAC vs permission-based authorization interview questions
+
+[ ] Refresh Tokens
+    ├── Access token vs refresh token
+    ├── Refresh token storage
+    ├── Refresh endpoint    
+    ├── Token expiration
+    └── Refresh token lifecycle
+
+[ ] Refresh Token Rotation
+    ├── Token rotation
+    ├── Token reuse detection
+    └── Token family
+
+[ ] Token Revocation
+    ├── Logout
+    ├── Revoke refresh token
+    ├── Session invalidation
+    └── Compromised token handling
+
+[ ] Session Management
+    ├── Multiple devices
+    ├── Active sessions
+    ├── Session expiration
+    ├── Logout from one device
+    └── Logout from all devices
+
+[ ] Cookie-Based Authentication
+    ├── HttpOnly
+    ├── Secure
+    ├── SameSite
+    └── Cookie vs Authorization header
+
+[ ] API Keys
+    ├── API key generation
+    ├── API key validation
+    ├── Hashing API keys
+    ├── Expiration
+    └── Revocation
+
+[ ] OAuth 2.0
+    ├── Authorization Code
+    ├── Authorization Code + PKCE
+    ├── Client Credentials
+    ├── Access tokens
+    ├── Scopes
+    ├── Refresh tokens
+    ├── Token revocation
+    └── Token introspection
+
+[ ] OpenID Connect (OIDC)
+    ├── Authentication vs OAuth
+    ├── ID Token
+    ├── UserInfo
+    ├── Discovery
+    └── Identity providers
+
+[ ] Authentication Security
+    ├── Brute-force protection
+    ├── Credential stuffing
+    ├── Password policies
+    ├── Account lockout
+    ├── Token theft
+    ├── Replay attacks
+    ├── Secret leakage
+    └── Authentication bypass
+
+[ ] Password Lifecycle
+    ├── Change password
+    ├── Forgot password
+    ├── Password reset token
+    ├── Reset token expiration
+    └── Invalidate existing sessions
+
+[ ] Multi-Factor Authentication
+    ├── TOTP
+    ├── OTP
+    ├── Recovery codes
+    └── MFA verification flow
+
+[ ] Authentication Observability
+    ├── Login attempts
+    ├── Failed authentication
+    ├── Logout events
+    ├── Token events
+    └── Audit logging
 ```
 
 ### API Testing
