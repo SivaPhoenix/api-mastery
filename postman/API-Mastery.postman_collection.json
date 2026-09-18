@@ -14,9 +14,14 @@
           "name": "Get By Id",
           "request": {
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_006f}}"
+              }
+            ],
             "url": {
-              "raw": "{{api-master}}/api/v1/users/6aa93c142987aa67b6b487a3",
+              "raw": "{{api-master}}/api/v1/users/",
               "host": [
                 "{{api-master}}"
               ],
@@ -24,7 +29,7 @@
                 "api",
                 "v1",
                 "users",
-                "6aa93c142987aa67b6b487a3"
+                ""
               ]
             }
           },
@@ -260,7 +265,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "[\r\n  {\r\n    \"name\": \"Smart LED Bulb\",\r\n    \"description\": \"WiFi-enabled smart LED bulb with adjustable brightness\",\r\n    \"sku\": \"PF-TEST-BULB-001\",\r\n    \"price\": 899,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 50,\r\n    \"category\": \"Smart Home\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Smart Plug\",\r\n    \"description\": \"WiFi smart plug with mobile app control\",\r\n    \"sku\": \"PF-TEST-PLUG-001\",\r\n    \"price\": 1299,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 35,\r\n    \"category\": \"Smart Home\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Fitness Band\",\r\n    \"description\": \"Fitness tracker with heart rate and sleep monitoring\",\r\n    \"sku\": \"PF-TEST-BAND-001\",\r\n    \"price\": 2499,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 45,\r\n    \"category\": \"Wearables\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Smart Watch\",\r\n    \"description\": \"AMOLED smartwatch with fitness tracking\",\r\n    \"sku\": \"PF-TEST-WATCH-001\",\r\n    \"price\": 6999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 18,\r\n    \"category\": \"Wearables\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Power Bank 20000mAh\",\r\n    \"description\": \"High-capacity power bank with fast charging\",\r\n    \"sku\": \"PF-TEST-POWERBANK-001\",\r\n    \"price\": 1799,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 55,\r\n    \"category\": \"Accessories\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Bluetooth Earbuds\",\r\n    \"description\": \"True wireless earbuds with charging case\",\r\n    \"sku\": \"PF-TEST-EARBUDS-001\",\r\n    \"price\": 3299,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 30,\r\n    \"category\": \"Audio\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Soundbar\",\r\n    \"description\": \"2.1 channel soundbar for home entertainment\",\r\n    \"sku\": \"PF-TEST-SOUNDBAR-001\",\r\n    \"price\": 8999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 7,\r\n    \"category\": \"Audio\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Tablet 10 Inch\",\r\n    \"description\": \"10-inch Android tablet with 128GB storage\",\r\n    \"sku\": \"PF-TEST-TABLET-001\",\r\n    \"price\": 15999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 14,\r\n    \"category\": \"Computers\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Wireless Charger\",\r\n    \"description\": \"15W fast wireless charging pad\",\r\n    \"sku\": \"PF-TEST-CHARGER-001\",\r\n    \"price\": 1499,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 80,\r\n    \"category\": \"Accessories\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"HDMI Cable\",\r\n    \"description\": \"High-speed HDMI 2.1 cable\",\r\n    \"sku\": \"PF-TEST-HDMI-001\",\r\n    \"price\": 699,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 120,\r\n    \"category\": \"Accessories\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Desk Lamp\",\r\n    \"description\": \"LED desk lamp with adjustable color temperature\",\r\n    \"sku\": \"PF-TEST-LAMP-001\",\r\n    \"price\": 1599,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 25,\r\n    \"category\": \"Home Office\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Office Chair\",\r\n    \"description\": \"Ergonomic office chair with adjustable lumbar support\",\r\n    \"sku\": \"PF-TEST-CHAIR-001\",\r\n    \"price\": 12999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 6,\r\n    \"category\": \"Furniture\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Standing Desk\",\r\n    \"description\": \"Electric height-adjustable standing desk\",\r\n    \"sku\": \"PF-TEST-DESK-001\",\r\n    \"price\": 24999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 4,\r\n    \"category\": \"Furniture\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"Gaming Controller\",\r\n    \"description\": \"Wireless gaming controller with vibration feedback\",\r\n    \"sku\": \"PF-TEST-CONTROLLER-001\",\r\n    \"price\": 3999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 22,\r\n    \"category\": \"Gaming\",\r\n    \"status\": \"active\"\r\n  },\r\n  {\r\n    \"name\": \"VR Headset\",\r\n    \"description\": \"Standalone virtual reality headset\",\r\n    \"sku\": \"PF-TEST-VR-001\",\r\n    \"price\": 29999,\r\n    \"currency\": \"INR\",\r\n    \"stock\": 0,\r\n    \"category\": \"Gaming\",\r\n    \"status\": \"inactive\"\r\n  }\r\n]",
+              "raw": "{\r\n  \"name\": \"Inactive Test Product\",\r\n  \"description\": \"Used for Order API inactive product testing\",\r\n  \"sku\": \"PF-TEST-INACTIVE-001\",\r\n  \"price\": 1999,\r\n  \"currency\": \"INR\",\r\n  \"stock\": 20,\r\n  \"category\": \"Testing\",\r\n  \"status\": \"inactive\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -268,7 +273,7 @@
               }
             },
             "url": {
-              "raw": "{{api-master}}/api/v1/products/bulk",
+              "raw": "{{api-master}}/api/v1/products/",
               "host": [
                 "{{api-master}}"
               ],
@@ -276,7 +281,7 @@
                 "api",
                 "v1",
                 "products",
-                "bulk"
+                ""
               ]
             }
           },
@@ -343,7 +348,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"userId\": \"6aa93c142987aa67b6b487a3\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"6aaa4453420ed9c4d74bb76d\",\r\n      \"quantity\": 3\r\n    }\r\n  ]\r\n}",
+              "raw": "{\r\n  \"userId\": \"6aaba5e395c93e72af9ea3aa\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"6aaa3da5744aa99aa7ffdb62\",\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -369,9 +374,14 @@
           "name": "Get Order",
           "request": {
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{json_web_token_08me}}"
+              }
+            ],
             "url": {
-              "raw": "{{api-master}}/api/v1/orders/6aaa52534b717ce1454e55c8",
+              "raw": "{{api-master}}/api/v1/orders/6aad0eca61c0a217aa836175",
               "host": [
                 "{{api-master}}"
               ],
@@ -379,13 +389,138 @@
                 "api",
                 "v1",
                 "orders",
-                "6aaa52534b717ce1454e55c8"
+                "6aad0eca61c0a217aa836175"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Nexted Order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Siva Sriram\",\r\n    \"email\": \"siva@example.com\",\r\n    \"password\": \"Siva@123\",\r\n    \"age\": 25,\r\n    \"gender\": \"male\",\r\n    \"city\": \"Chennai\",\r\n    \"country\": \"India\",\r\n    \"phone\": \"9876543210\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-master}}/api/v1/auth/register",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"siva@example.com\",\r\n    \"password\": \"Siva@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-master}}/api/v1/auth/login",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Auth ME",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_006f}}"
+              }
+            ],
+            "url": {
+              "raw": "{{api-master}}/api/v1/auth/me",
+              "host": [
+                "{{api-master}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "me"
               ]
             }
           },
           "response": []
         }
       ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "bearer_token_1cqc",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_08d2",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0mm9",
+      "secret": true
+    },
+    {
+      "key": "bearer_token_0hpn",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_08me",
+      "secret": true
+    },
+    {
+      "key": "bearer_token_006f",
+      "secret": true
     }
   ]
 }
