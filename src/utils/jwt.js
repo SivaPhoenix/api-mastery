@@ -8,7 +8,7 @@ const generateAccessToken=(user)=>{
             role:user.role
         },
         env.jwtSecret,{
-            expiresIn:"1h"
+            expiresIn:"21d"
         }
     )
 }

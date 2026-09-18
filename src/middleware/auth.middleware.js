@@ -11,7 +11,7 @@ const authenticate=(req,res,next)=>{
         if(!authHeader){
             throw new ApiError(
                 HTTP_STATUS.UNAUTHORIZED,
-                ERROR_CODES.INVALID_CREDENTIALS,
+                ERROR_CODES.INVALID_TOKEN,
                 "Authentication required"
             )
         }
